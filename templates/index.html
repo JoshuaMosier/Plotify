@@ -46,6 +46,9 @@
                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
+                <div class="row justify-content-center">
+                  <div id="vis"></div>
+                </div>
                 <!-- Portfolio Grid Items-->
                 <div class="row justify-content-center">
                   {{tracks}}
@@ -387,5 +390,6 @@
         <script src="{{ url_for('static',filename = '/mail/jqBootstrapValidation.js')}}"></script>
         <!-- Core theme JS-->
         <script src="{{ url_for('static',filename = 'script.js')}}"></script>
-
+        <script src="{{ url_for('static',filename = 'tooltip.js')}}"></script>
+        <script src="{{ url_for('static',filename = 'bubble_chart.js')}}"></script>
 {% endblock %}

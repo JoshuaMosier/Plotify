@@ -91,9 +91,9 @@ function bubbleChart() {
    * array for each element in the rawData input.
    */
   function createNodes(rawData) {
-    // Use the max total_amount in the data as the max in the scale's domain
-    // note we have to ensure the total_amount is a number.
-    var maxAmount = d3.max(rawData, function (d) { return +d.total_amount; });
+    // Use the max count in the data as the max in the scale's domain
+    // note we have to ensure the count is a number.
+    var maxAmount = d3.max(rawData, function (d) { return +d.count; });
 
     // Sizes bubbles based on area.
     // @v4: new flattened scale names.
@@ -108,12 +108,10 @@ function bubbleChart() {
     var myNodes = rawData.map(function (d) {
       return {
         id: d.id,
-        radius: radiusScale(+d.total_amount),
-        value: +d.total_amount,
-        name: d.grant_title,
-        org: d.organization,
-        group: d.group,
-        year: d.start_year,
+        radius: radiusScale(+d.count),
+        value: +d.count,
+        name: d.name,
+        group: d.name,
         x: Math.random() * 900,
         y: Math.random() * 800
       };
@@ -273,15 +271,7 @@ function bubbleChart() {
     // change outline to indicate hover state.
     d3.select(this).attr('stroke', 'black');
 
-    var content = '<span class="name">Title: </span><span class="value">' +
-                  d.name +
-                  '</span><br/>' +
-                  '<span class="name">Amount: </span><span class="value">$' +
-                  addCommas(d.value) +
-                  '</span><br/>' +
-                  '<span class="name">Year: </span><span class="value">' +
-                  d.year +
-                  '</span>';
+    var content = d.name;
 
     tooltip.showTooltip(content, d3.event);
   }
@@ -378,7 +368,7 @@ function addCommas(nStr) {
 }
 
 // Load the data.
-d3.csv('/test', display);
+d3.csv('test', display);
 
 // setup the buttons.
 setupButtons();

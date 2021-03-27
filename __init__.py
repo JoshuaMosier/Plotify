@@ -41,6 +41,8 @@ def callback():
 def main():
     response = startup.getUser()
     token = startup.getAccessToken()
+    if len(token) == 0:
+        return redirect(url_for('index'))
     access_token = token[0]
     username = plotify_data.get_username(access_token)
     tracks = plotify_data.get_top_tracks(access_token)
@@ -54,8 +56,14 @@ def bubble():
 # app.py
 @app.route('/test')
 def test():
-    data = pd.read_csv('static/data/gates_money.csv')
-    return data.to_csv()
+    token = startup.getAccessToken()
+    if len(token) == 0:
+        return redirect(url_for('index'))
+    access_token = token[0]
+    artists = plotify_data.get_top_artists(access_token)
+    data = pd.DataFrame.from_records(artists)
+    data.columns = ['id','name','count']
+    return data.to_csv(index=False)
 
 if __name__ == '__main__':
     app.run(debug=True)
