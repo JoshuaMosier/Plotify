@@ -10,6 +10,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user, login_required
 from operator import itemgetter
 
+import pandas as pd
+import csv
 import os
 import plotify_data
 app = Flask(__name__)
@@ -44,6 +46,16 @@ def main():
     tracks = plotify_data.get_top_tracks(access_token)
     artists = plotify_data.get_top_artists(access_token)
     return render_template('index.html',username=username,tracks=tracks,artists=artists)
+
+@app.route('/bubble')
+def bubble():
+    return render_template('bubble.html')
+
+# app.py
+@app.route('/test')
+def test():
+    data = pd.read_csv('static/data/gates_money.csv')
+    return data.to_csv()
 
 if __name__ == '__main__':
     app.run(debug=True)
