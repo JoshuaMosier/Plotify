@@ -38,9 +38,12 @@ def callback():
 @app.route('/main')
 def main():
     response = startup.getUser()
-    token = res = startup.getAccessToken()
-    username = plotify_data.get_username(token[0])
-    return render_template('index.html',test=token,test2=startup.getUser(),test3=username)
+    token = startup.getAccessToken()
+    access_token = token[0]
+    username = plotify_data.get_username(access_token)
+    tracks = plotify_data.get_top_tracks(access_token)
+    artists = plotify_data.get_top_artists(access_token)
+    return render_template('index.html',username=username,tracks=tracks,artists=artists)
 
 if __name__ == '__main__':
     app.run(debug=True)

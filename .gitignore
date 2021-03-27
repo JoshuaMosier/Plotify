@@ -1,3 +1,7 @@
 
 *.pyc
 startup.py
+static/assets/mail/contact_me.php
+static/assets/mail/contact_me.js
+static/mail/contact_me.php
+static/mail/contact_me.js
