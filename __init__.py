@@ -44,10 +44,18 @@ def main():
     if len(token) == 0:
         return redirect(url_for('index'))
     access_token = token[0]
+    artists = plotify_data.get_top_genres(access_token)
+    genres = [item[1] for item in artists][:10]
     username,prof_pic = plotify_data.get_username(access_token)
-    lt_tracks = plotify_data.get_top_tracks(access_token,'long_term')
-    lt_artists = plotify_data.get_top_artists(access_token,'long_term')
-    return render_template('index.html',username=username,tracks=lt_tracks,artists=lt_artists,prof_pic=prof_pic)
+    stracks = plotify_data.get_top_tracks(access_token,'short_term')
+    sartists = plotify_data.get_top_artists(access_token,'short_term')
+    mtracks = plotify_data.get_top_tracks(access_token,'medium_term')
+    martists = plotify_data.get_top_artists(access_token,'medium_term')
+    ltracks = plotify_data.get_top_tracks(access_token,'long_term')
+    lartists = plotify_data.get_top_artists(access_token,'long_term')
+    years,count = plotify_data.get_track_data(access_token,'long_term')
+    legend = 'Tracks by Year'
+    return render_template('index.html',username=username,genres=genres,stracks=stracks,sartists=sartists,mtracks=mtracks,martists=martists,ltracks=ltracks,lartists=lartists,prof_pic=prof_pic,values=count, labels=years, legend=legend)
 
 @app.route('/bubble')
 def bubble():
