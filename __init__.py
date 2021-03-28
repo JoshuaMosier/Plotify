@@ -44,10 +44,10 @@ def main():
     if len(token) == 0:
         return redirect(url_for('index'))
     access_token = token[0]
-    username = plotify_data.get_username(access_token)
-    tracks = plotify_data.get_top_tracks(access_token)
-    artists = plotify_data.get_top_artists(access_token)
-    return render_template('index.html',username=username,tracks=tracks,artists=artists)
+    username,prof_pic = plotify_data.get_username(access_token)
+    lt_tracks = plotify_data.get_top_tracks(access_token,'long_term')
+    lt_artists = plotify_data.get_top_artists(access_token,'long_term')
+    return render_template('index.html',username=username,tracks=lt_tracks,artists=lt_artists,prof_pic=prof_pic)
 
 @app.route('/bubble')
 def bubble():
@@ -60,7 +60,7 @@ def test():
     if len(token) == 0:
         return redirect(url_for('index'))
     access_token = token[0]
-    artists = plotify_data.get_top_artists(access_token)
+    artists = plotify_data.get_top_genres(access_token)
     data = pd.DataFrame.from_records(artists)
     data.columns = ['id','name','count']
     return data.to_csv(index=False)

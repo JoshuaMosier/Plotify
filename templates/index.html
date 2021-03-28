@@ -22,7 +22,7 @@
         <header class="masthead bg-primary text-white text-center">
             <div class="container d-flex align-items-center flex-column">
                 <!-- Masthead Avatar Image-->
-                <img class="masthead-avatar mb-5" src="static/assets/img/plotify_logo.svg" alt="" />
+                <img class="masthead-avatar mb-5 rounded-circle" src="{{prof_pic}}" alt="" />
                 <!-- Masthead Heading-->
                 <h1 class="masthead-heading mb-0">Hi {{username}}</h1>
                 <!-- Icon Divider-->
@@ -35,6 +35,55 @@
                 <!-- <p class="masthead-subheading font-weight-light mb-0"></p> -->
             </div>
         </header>
+
+        <!-- Top Tracks -->
+        <section class="page-section" id="top">
+          <div class="container">
+              <!-- Contact Section Heading-->
+              <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Your Favorites</h2>
+              <!-- Icon Divider-->
+              <div class="divider-custom">
+                  <div class="divider-custom-line"></div>
+                  <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                  <div class="divider-custom-line"></div>
+              </div>
+              <!-- Contact Section Form-->
+              <div class="row">
+                  <div class="col-lg-8 mx-auto">
+                      <h3 class="text-center text-uppercase text-secondary mb-0">Your Top Artists</h3>
+
+                      <div class="row justify-content-center">
+                        {% for artist in artists %}
+                          <div class="col-md-6 col-lg-4 mb-5">
+                            <div class="image-tile">
+                              <img class="masthead-avatar rounded-circle image-tile" src="{{artist[2]}}" alt="" height='150px'/>
+                              <h4 class="art-caption">{{artist[0]}}</h4>
+                            </div>
+                          </div>
+                        {% endfor %}  
+                      </div>
+
+                      <h3 class="text-center text-uppercase text-secondary mb-0">Your Top Tracks</h3>
+                      <div class="row justify-content-center">
+                        {% for track in tracks %}
+                          <div class="col-md-6 col-lg-4 mb-5">
+                            <div>
+                              <img class="masthead-avatar rounded-circle image-tile" src="{{track[2]}}" alt="" height='150px'/>
+                              <h4 class="art-caption">{{track[0]}}</h4>
+                            </div>
+                          </div>
+                        {% endfor %}  
+                      </div>
+
+                      <h3 class="text-center text-uppercase text-secondary mb-0">Your Top Genres</h3>
+                      <div class="row justify-content-center">
+                        <div id="vis"></div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </section>
+
         <!-- Portfolio Section-->
         <section class="page-section portfolio" id="portfolio">
             <div class="container">
@@ -46,13 +95,8 @@
                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
-                <div class="row justify-content-center">
-                  <div id="vis"></div>
-                </div>
                 <!-- Portfolio Grid Items-->
                 <div class="row justify-content-center">
-                  {{tracks}}
-                  {{artists}}
                     <!-- Portfolio Item 1-->
                     <div class="col-md-6 col-lg-4 mb-5">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">

@@ -75,7 +75,7 @@ function bubbleChart() {
   // @v4 scales now have a flattened naming scheme
   var fillColor = d3.scaleOrdinal()
     .domain(['low', 'medium', 'high'])
-    .range(['#d84b2a', '#beccae', '#7aa25c']);
+    .range(['#413C69', '#4A47A3', '#709FB0']);
 
 
   /*

@@ -1,0 +1,13 @@
+.rounded-circle{
+    object-fit: cover;
+}
+
+.image-tile{
+    display:block;
+    margin:auto;
+    margin-top:20px;
+}
+
+.art-caption{
+    text-align:center;
+}
