@@ -47,26 +47,10 @@ def get_top_genres(access_token):
         idx = idx + 1
     return out
 
-def get_track_data(access_token,term):
-    headers = {'Authorization': 'Bearer {token}'.format(token=access_token)}
-    r = requests.get(BASE_URL + 'me/top/tracks?time_range='+ term +'&limit=50&offset=0', headers=headers).json()
-    track_names = []
-
-    # Plot release date vs genre?
-    # Plot release date histogram
-    # Plot length of song histogram
-    # Pie chart of album/single/podcast
-    ages = []
-    for item in r['items']:
-        ages.append(item['album']['release_date'][0:4])
-    years,count = zip(*sorted(Counter(ages).items(), key=lambda pair: pair[0]))
-    return years,count
-
-def get_track_metrics(access_token,term):
+def get_track_ages(access_token,term):
     headers = {'Authorization': 'Bearer {token}'.format(token=access_token)}
     r = requests.get(BASE_URL + 'me/top/tracks?time_range='+ term +'&limit=50&offset=0', headers=headers).json()
     track_names = []
     for item in r['items']:
-        ages.append(item['album'])
-    
-    return years,count
+        track_names.append([item['name'],item['popularity'],item['album']['images'][0]['url']])
+    return track_names
