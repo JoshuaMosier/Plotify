@@ -71,7 +71,7 @@
                           <div class="col-md-3 col-lg-3 mb-3">
                             <div class="image-tile">
                               <img class="masthead-avatar rounded-circle image-tile" src="{{artist[2]}}" alt="" height='150px'/>
-                              <h6 class="art-caption">{{artist[0]}}</h6>
+                              <h6 class="art-caption">{{loop.index}}. {{artist[0]}}</h6>
                             </div>
                           </div>
                         {% endfor %}  
@@ -80,7 +80,7 @@
                           <div class="col-md-3 col-lg-3 mb-3">
                             <div class="image-tile">
                               <img class="masthead-avatar rounded-circle image-tile" src="{{artist[2]}}" alt="" height='150px'/>
-                              <h6 class="art-caption">{{artist[0]}}</h6>
+                              <h6 class="art-caption">{{loop.index}}. {{artist[0]}}</h6>
                             </div>
                           </div>
                         {% endfor %}  
@@ -89,7 +89,7 @@
                           <div class="col-md-3 col-lg-3 mb-3">
                             <div class="image-tile">
                               <img class="masthead-avatar rounded-circle image-tile" src="{{artist[2]}}" alt="" height='150px'/>
-                              <h6 class="art-caption">{{artist[0]}}</h6>
+                              <h6 class="art-caption">{{loop.index}}. {{artist[0]}}</h6>
                             </div>
                           </div>
                         {% endfor %}  
@@ -112,7 +112,7 @@
                           <div class="col-md-3 col-lg-3 mb-3">
                             <div class="image-tile">
                               <img class="masthead-avatar rounded-circle image-tile" src="{{track[2]}}" alt="" height='150px'/>
-                              <h6 class="art-caption">{{track[0]}}</h6>
+                              <h6 class="art-caption">{{loop.index}}. {{track[0]}}</h6>
                             </div>
                           </div>
                         {% endfor %}  
@@ -121,7 +121,7 @@
                           <div class="col-md-3 col-lg-3 mb-3">
                             <div class="image-tile">
                               <img class="masthead-avatar rounded-circle image-tile" src="{{track[2]}}" alt="" height='150px'/>
-                              <h6 class="art-caption">{{track[0]}}</h6>
+                              <h6 class="art-caption">{{loop.index}}. {{track[0]}}</h6>
                             </div>
                           </div>
                         {% endfor %} 
@@ -130,7 +130,7 @@
                           <div class="col-md-3 col-lg-3 mb-3">
                             <div class="image-tile">
                               <img class="masthead-avatar rounded-circle image-tile" src="{{track[2]}}" alt="" height='150px'/>
-                              <h6 class="art-caption">{{track[0]}}</h6>
+                              <h6 class="art-caption">{{loop.index}}. {{track[0]}}</h6>
                             </div>
                           </div>
                         {% endfor %} 
@@ -231,14 +231,28 @@
                           var myChart = new Chart(ctx, {
                             type: 'bar',
                             data: chartData,
-                            options: {
-                              scales: {
-                                  yAxes: [{
-                                      ticks: {
-                                          beginAtZero: true
-                                      }
-                                  }]
-                              }
+                            options: { 
+                                legend: {
+                                  display: false
+                                },
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            fontColor: "white",
+                                            fontSize: 14,
+                                            stepSize: 1,
+                                            beginAtZero: true
+                                        }
+                                    }],
+                                    xAxes: [{
+                                        ticks: {
+                                            fontColor: "white",
+                                            fontSize: 16,
+                                            stepSize: 1,
+                                            beginAtZero: true
+                                        }
+                                    }]
+                                }
                             }
                           });
                         </script>
@@ -266,60 +280,12 @@
                 </div>
                 <!-- Portfolio Grid Items-->
                 <div class="row justify-content-center">
-                    <!-- Portfolio Item 1-->
-                    <div class="col-md-6 col-lg-4 mb-5">
-                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="static/assets/img/portfolio/cabin.png" alt="" />
-                        </div>
-                    </div>
-                    <!-- Portfolio Item 2-->
-                    <div class="col-md-6 col-lg-4 mb-5">
-                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal2">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="static/assets/img/portfolio/cake.png" alt="" />
-                        </div>
-                    </div>
-                    <!-- Portfolio Item 3-->
-                    <div class="col-md-6 col-lg-4 mb-5">
-                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal3">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="static/assets/img/portfolio/circus.png" alt="" />
-                        </div>
-                    </div>
-                    <!-- Portfolio Item 4-->
-                    <div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
-                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal4">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="static/assets/img/portfolio/game.png" alt="" />
-                        </div>
-                    </div>
-                    <!-- Portfolio Item 5-->
-                    <div class="col-md-6 col-lg-4 mb-5 mb-md-0">
-                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal5">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="static/assets/img/portfolio/safe.png" alt="" />
-                        </div>
-                    </div>
-                    <!-- Portfolio Item 6-->
-                    <div class="col-md-6 col-lg-4">
-                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal6">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="static/assets/img/portfolio/submarine.png" alt="" />
-                        </div>
-                    </div>
+                    <!-- Your Most Danceable Songs  top 5-->
+                    <!-- Your Highest Energy Songs -->
+                    <!-- Your Most Instrumental Songs -->
+                    <!-- Your Longest Songs -->
+                    <!-- Pie Chart of major/minor -->
+                    <!-- Valence Distribution -->
                 </div>
             </div>
         </section>

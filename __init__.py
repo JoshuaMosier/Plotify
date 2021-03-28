@@ -55,6 +55,7 @@ def main():
     lartists = plotify_data.get_top_artists(access_token,'long_term')
     years,count = plotify_data.get_track_data(access_token,'long_term')
     legend = 'Tracks by Year'
+    test = plotify_data.get_playlist_metrics(access_token)
     return render_template('index.html',username=username,genres=genres,stracks=stracks,sartists=sartists,mtracks=mtracks,martists=martists,ltracks=ltracks,lartists=lartists,prof_pic=prof_pic,values=count, labels=years, legend=legend)
 
 @app.route('/bubble')

@@ -62,11 +62,26 @@ def get_track_data(access_token,term):
     years,count = zip(*sorted(Counter(ages).items(), key=lambda pair: pair[0]))
     return years,count
 
-def get_track_metrics(access_token,term):
+def get_playlist_metrics(access_token):
     headers = {'Authorization': 'Bearer {token}'.format(token=access_token)}
-    r = requests.get(BASE_URL + 'me/top/tracks?time_range='+ term +'&limit=50&offset=0', headers=headers).json()
-    track_names = []
+    # Get all playlist ids
+    r = requests.get(BASE_URL + 'me/playlists/?limit=50&offset=0', headers=headers).json()
+    playlist_ids = []
     for item in r['items']:
-        ages.append(item['album'])
+        playlist_ids.append(item['id'])
+
+    track_ids = []
+    for playlist_id in playlist_ids:
+        r = requests.get(BASE_URL + 'playlists/'+playlist_id+'/tracks?market=US&fields=items(track(name%2Cid))&limit=50&offset=0', headers=headers).json()
+        for track in r['items']:
+            track_ids.append(track['track']['id'])
     
-    return years,count
+    chunks = [track_ids[x:x+100] for x in range(0, len(track_ids), 100)]
+    # print(chunks[0])
+    # for chunk in chunk
+    # Get features
+    delim = ','
+    tracks_string = delim.join(chunks[0])
+    print(tracks_string)
+    # r = requests.get(BASE_URL + '', headers=headers).json()
+    return 0
