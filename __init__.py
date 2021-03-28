@@ -55,8 +55,9 @@ def main():
     lartists = plotify_data.get_top_artists(access_token,'long_term')
     years,count = plotify_data.get_track_data(access_token,'long_term')
     legend = 'Tracks by Year'
-    test = plotify_data.get_playlist_metrics(access_token)
-    return render_template('index.html',username=username,genres=genres,stracks=stracks,sartists=sartists,mtracks=mtracks,martists=martists,ltracks=ltracks,lartists=lartists,prof_pic=prof_pic,values=count, labels=years, legend=legend)
+    danceable,averaged,plist_names = plotify_data.get_playlist_metrics(access_token)
+    radar_labels = ['danceability','energy','speechiness','acousticness','instrumentalness','liveness','valence']
+    return render_template('index.html',username=username,genres=genres,stracks=stracks,sartists=sartists,mtracks=mtracks,martists=martists,ltracks=ltracks,lartists=lartists,prof_pic=prof_pic,values=count, labels=years, legend=legend, danceable=danceable,averaged=averaged,radar_labels=radar_labels,plist_names=plist_names)
 
 @app.route('/bubble')
 def bubble():

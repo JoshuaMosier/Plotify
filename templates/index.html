@@ -15,7 +15,22 @@
         <!-- <link rel="stylesheet" href="{{url_for('static',filename='animate.min.css')}}">
         <script src="{{ url_for('static',filename = 'wow.js')}}"></script>
         <script> new WOW().init();</script> -->
+        <!-- Enable WebPlayer -->
+        <script src="https://sdk.scdn.co/spotify-player.js"></script>
+        <script>
+          window.onSpotifyWebPlaybackSDKReady = () => {
+            var player = new Spotify.Player({
+              name: 'Carly Rae Jepsen Player',
+              getOAuthToken: callback => {
+                // Run code to get a fresh access token
 
+                callback('access token here');
+              },
+              volume: 0.5
+            });
+          };
+          
+          </script>
         
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
@@ -27,9 +42,12 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#favorites">Favorites</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#plots">Plots</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">History</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#artists">Artists</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#tracks">Tracks</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#genres">Genres</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#dance">Danceability</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#playlist">Playlists</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#hist">History</a></li>
                     </ul>
                 </div>
             </div>
@@ -53,18 +71,18 @@
         </header>
 
         <!-- Top Tracks -->
-        <section class="page-section" id="favorites">
+        <section class="page-section" id="artists">
           <div class="container">
               <!-- Contact Section Form-->
               <div class="row">
                   <div class="col-lg-12 mx-auto">
                     <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Your Top Artists</h2>
                     <!-- Icon Divider-->
-                    <div class="divider-custom">
-                        <div class="divider-custom-line"></div>
-                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                        <div class="divider-custom-line"></div>
-                    </div>
+                    <div class="divider-custom divider-light">
+                      <div class="divider-custom-line"></div>
+                      <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                      <div class="divider-custom-line"></div>
+                  </div>
                       <div class="row justify-content-between">
                         <h4 class="vert-align-text">(Last 4 weeks)</h4>
                         {% for artist in sartists %}
@@ -94,14 +112,19 @@
                           </div>
                         {% endfor %}  
                       </div>
-
+                    </div>
+              </div>
+          </div>
+        </section>
                     <br>
                     <br>
                     <br>
                     <br>
-                    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Your Top Tracks</h2>
+                    <section class="page-section bg-primary" id="tracks">
+                      <div class="container">
+                    <h2 class="page-section-heading text-center text-uppercase text-white mb-0">Your Top Tracks</h2>
                     <!-- Icon Divider-->
-                    <div class="divider-custom">
+                    <div class="divider-custom divider-light">
                         <div class="divider-custom-line"></div>
                         <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                         <div class="divider-custom-line"></div>
@@ -135,11 +158,14 @@
                           </div>
                         {% endfor %} 
                       </div>
-
+                    </div>
+                      </section>
                       <br>
                       <br>
                       <br>
                       <br>
+                      <section class="page-section" id="genres">
+                        <div class="container">
                       <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Your Top Genres</h2>
                     <!-- Icon Divider-->
                     <div class="divider-custom">
@@ -169,25 +195,134 @@
               </div>
         </section>
 
-        <!-- Track Ages -->
-        <section class="page-section bg-primary" id="plots">
+        
+        
+        <!-- Radar -->
+        <section class="page-section bg-primary" id="dance">
           <div class="container">
-              <!-- Contact Section Heading-->
-              <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Travel Through Time</h2>
+              <!-- Contact Section Form-->
+              <div class="row">
+                  <div class="col-lg-12 mx-auto">
+                    <h2 class="page-section-heading text-center text-uppercase text-white mb-0">Your Most Danceable Songs?</h2>
+                    <!-- Icon Divider-->
+                    <div class="divider-custom divider-light">
+                      <div class="divider-custom-line"></div>
+                      <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                      <div class="divider-custom-line"></div>
+                  </div>
+                    <div class="row justify-content-between">
+                      {% for track in danceable %}
+                        <div class="col-md-2 col-lg-2 mb-2">
+                          <div class="image-tile">
+                            <img class="masthead-avatar rounded-circle image-tile" src="{{track[2]}}" alt="" height='150px'/>
+                            <h6 class="art-caption">{{loop.index}}. {{track[0]}}</h6>
+                            <h6 class="art-caption">Danceability Score: {{track[1]*100}}%</h6>
+                          </div>
+                        </div>
+                      {% endfor %}  
+                      
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </section>
+        <!-- About Section-->
+        <section class="page-section text-white mb-0" id="playlist">
+          <div class="container">
+              <!-- About Section Heading-->
+              <h2 class="page-section-heading text-center text-uppercase text-secondary">What makes your playlists good?</h2>
               <!-- Icon Divider-->
               <div class="divider-custom">
-                  <div class="divider-custom-line"></div>
-                  <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                  <div class="divider-custom-line"></div>
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+              <!-- About Section Content-->
+              <div class="row justify-content-between">
+                <!-- Radar Plots -->
+                {% for avg in averaged %}
+                <div class="col-md-6 col-lg-6 mb-6 bottom-spacing">
+                  <h4 class="art-caption" style="color:#2C3E50;height:50px;">{{plist_names[loop.index-1]}}</h4>
+                  <canvas id="test{{loop.index}}" width="600" height="400"></canvas>
+                  <script>
+                   var marksCanvas = document.getElementById("test{{loop.index}}");
+
+                    var marksData = {
+                      labels : [{% for item in radar_labels %}
+                                        "{{item}}",
+                                      {% endfor %}],
+                      datasets: [{
+                        label: "{{plist_names[loop.index-1]}}",
+                        fill: true,
+                                lineTension: 0.1,
+                                backgroundColor: "#2C3E50",
+                                borderColor: "#2C3E50",
+                                borderCapStyle: 'butt',
+                                borderDash: [],
+                                borderDashOffset: 0.0,
+                                borderJoinStyle: 'miter',
+                                pointBorderColor: "#2C3E50",
+                                pointBackgroundColor: "#fff",
+                                pointBorderWidth: 1,
+                                pointHoverRadius: 5,
+                                pointHoverBackgroundColor: "#2C3E50",
+                                pointHoverBorderColor: "#2C3E50",
+                                pointHoverBorderWidth: 2,
+                                pointRadius: 1,
+                                pointHitRadius: 10,
+                        backgroundColor: "rgba(200,0,0,0.2)",
+                        data : [{% for item in avg %}
+                                          {{item}},
+                                        {% endfor %}]
+                      }]
+                    };
+
+                    var radarChart = new Chart(marksCanvas, {
+                      type: 'radar',
+                      data: marksData,
+                      options:{
+                      elements:{
+                          line:{
+                              tension:0,
+                              borderWidth:3
+                          }
+                      },
+                      scale: {
+                        pointLabels: {
+                          fontSize: 16
+                        }
+                      },
+                      legend: {
+                          display: false
+                      },
+                  }
+                    });
+                  </script>
+
+                  </div>
+                {% endfor %}
               </div>
+          </div>
+      </section>
+
+        <!-- Track Ages -->
+        <section class="page-section bg-primary" id="hist">
+          <div class="container">
+              <!-- Contact Section Heading-->
+              <h2 class="page-section-heading text-center text-uppercase text-white mb-0">Your Favorite Tracks by Year</h2>
+              <!-- Icon Divider-->
+              <div class="divider-custom divider-light">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
               <!-- Contact Section Form-->
               <div class="row">
                   <div class="col-lg-8 mx-auto">
-                      <h3 class="text-center text-uppercase text-secondary mb-0">Favorite Tracks By Release Years</h3>
                       <div class="row justify-content-center">
                         <!-- bar chart canvas element -->
                         <canvas id="myChart" width="600" height="400"></canvas>
-                        <p id="caption">See what year your favorite songs are from.</p>
+                        <p id="caption">Which year had the best music according to you?</p>
                         <script>
                           // Global parameters:
                           // do not resize the chart canvas when its container does (keep at 600x400px)
@@ -238,7 +373,7 @@
                                 scales: {
                                     yAxes: [{
                                         ticks: {
-                                            fontColor: "white",
+                                            fontColor: "#2C3E50",
                                             fontSize: 14,
                                             stepSize: 1,
                                             beginAtZero: true
@@ -246,7 +381,7 @@
                                     }],
                                     xAxes: [{
                                         ticks: {
-                                            fontColor: "white",
+                                            fontColor: "#2C3E50",
                                             fontSize: 16,
                                             stepSize: 1,
                                             beginAtZero: true
@@ -257,40 +392,14 @@
                           });
                         </script>
                       </div>
-
-
-                      <!-- Oldest/Newest Song -->
-                      <h3>The Oldest Song in your playlists: {{oldest}}</h3>
-                      <h3>The  Song in your playlists: {{oldest}}</h3>
                   </div>
               </div>
           </div>
         </section>
+    
 
-        <!-- Portfolio Section-->
-        <section class="page-section portfolio" id="test">
-            <div class="container">
-                <!-- Portfolio Section Heading-->
-                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Explore your Music Tastes</h2>
-                <!-- Icon Divider-->
-                <div class="divider-custom">
-                    <div class="divider-custom-line"></div>
-                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                    <div class="divider-custom-line"></div>
-                </div>
-                <!-- Portfolio Grid Items-->
-                <div class="row justify-content-center">
-                    <!-- Your Most Danceable Songs  top 5-->
-                    <!-- Your Highest Energy Songs -->
-                    <!-- Your Most Instrumental Songs -->
-                    <!-- Your Longest Songs -->
-                    <!-- Pie Chart of major/minor -->
-                    <!-- Valence Distribution -->
-                </div>
-            </div>
-        </section>
         <!-- About Section-->
-        <section class="page-section bg-primary text-white mb-0" id="about">
+        <section class="page-section bg-secondary text-white mb-0" id="about">
             <div class="container">
                 <!-- About Section Heading-->
                 <h2 class="page-section-heading text-center text-uppercase text-white">About</h2>
@@ -302,262 +411,19 @@
                 </div>
                 <!-- About Section Content-->
                 <div class="row">
-                    <div class="col-lg-4 ml-auto"><p class="lead">Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional SASS stylesheets for easy customization.</p></div>
-                    <div class="col-lg-4 mr-auto"><p class="lead">You can create your own custom avatar for the masthead, change the icon in the dividers, and add your email address to the contact form to make it fully functional!</p></div>
-                </div>
-                <!-- About Section Button-->
-                <div class="text-center mt-4">
-                    <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/theme/freelancer/">
-                        <i class="fas fa-download mr-2"></i>
-                        Free Download!
-                    </a>
+                    <div class="col-lg-4 ml-auto"><p class="lead">Plotify was inspired by Spotify Unwrapped and aims to showcase a users preference in music in an interesting and creative way.</p></div>
+                    <div class="col-lg-4 mr-auto"><p class="lead">This project was developed by Josh Mosier in under 24 hours for Hoohacks 2021.</p></div>
                 </div>
             </div>
         </section>
-        <!-- Contact Section-->
-        <section class="page-section" id="contact">
-            <div class="container">
-                <!-- Contact Section Heading-->
-                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Contact Me</h2>
-                <!-- Icon Divider-->
-                <div class="divider-custom">
-                    <div class="divider-custom-line"></div>
-                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                    <div class="divider-custom-line"></div>
-                </div>
-                <!-- Contact Section Form-->
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
-                        <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19.-->
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Footer-->
-        <footer class="footer text-center">
-            <div class="container">
-                <div class="row">
-                    <!-- Footer Location-->
-                    <div class="col-lg-4 mb-5 mb-lg-0">
-                    </div>
-                    <!-- Footer About Text-->
-                    <div class="col-lg-4">
-                        <h4 class="text-uppercase mb-4">About Plotify</h4>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        
+        
         <!-- Copyright Section-->
         <div class="copyright py-4 text-center text-white">
-            <div class="container"><small>Copyright © Your Website 2020</small></div>
+            <div class="container"><small>Copyright © Plotify 2021</small></div>
         </div>
         <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes)-->
         <div class="scroll-to-top d-lg-none position-fixed">
             <a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top"><i class="fa fa-chevron-up"></i></a>
-        </div>
-        <!-- Portfolio Modals-->
-        <!-- Portfolio Modal 1-->
-        <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-labelledby="portfolioModal1Label" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
-                    </button>
-                    <div class="modal-body text-center">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" id="portfolioModal1Label">Log Cabin</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <!-- Portfolio Modal - Image-->
-                                    <img class="img-fluid rounded mb-5" src="static/assets/img/portfolio/cabin.png" alt="" />
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                                    <button class="btn btn-primary" data-dismiss="modal">
-                                        <i class="fas fa-times fa-fw"></i>
-                                        Close Window
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Portfolio Modal 2-->
-        <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-labelledby="portfolioModal2Label" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
-                    </button>
-                    <div class="modal-body text-center">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" id="portfolioModal2Label">Tasty Cake</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <!-- Portfolio Modal - Image-->
-                                    <img class="img-fluid rounded mb-5" src="static/assets/img/portfolio/cake.png" alt="" />
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                                    <button class="btn btn-primary" data-dismiss="modal">
-                                        <i class="fas fa-times fa-fw"></i>
-                                        Close Window
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Portfolio Modal 3-->
-        <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-labelledby="portfolioModal3Label" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
-                    </button>
-                    <div class="modal-body text-center">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" id="portfolioModal3Label">Circus Tent</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <!-- Portfolio Modal - Image-->
-                                    <img class="img-fluid rounded mb-5" src="static/assets/img/portfolio/circus.png" alt="" />
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                                    <button class="btn btn-primary" data-dismiss="modal">
-                                        <i class="fas fa-times fa-fw"></i>
-                                        Close Window
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Portfolio Modal 4-->
-        <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-labelledby="portfolioModal4Label" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
-                    </button>
-                    <div class="modal-body text-center">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" id="portfolioModal4Label">Controller</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <!-- Portfolio Modal - Image-->
-                                    <img class="img-fluid rounded mb-5" src="static/assets/img/portfolio/game.png" alt="" />
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                                    <button class="btn btn-primary" data-dismiss="modal">
-                                        <i class="fas fa-times fa-fw"></i>
-                                        Close Window
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Portfolio Modal 5-->
-        <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-labelledby="portfolioModal5Label" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
-                    </button>
-                    <div class="modal-body text-center">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" id="portfolioModal5Label">Locked Safe</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <!-- Portfolio Modal - Image-->
-                                    <img class="img-fluid rounded mb-5" src="static/assets/img/portfolio/safe.png" alt="" />
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                                    <button class="btn btn-primary" data-dismiss="modal">
-                                        <i class="fas fa-times fa-fw"></i>
-                                        Close Window
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Portfolio Modal 6-->
-        <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-labelledby="portfolioModal6Label" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
-                    </button>
-                    <div class="modal-body text-center">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" id="portfolioModal6Label">Submarine</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <!-- Portfolio Modal - Image-->
-                                    <img class="img-fluid rounded mb-5" src="static/assets/img/portfolio/submarine.png" alt="" />
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                                    <button class="btn btn-primary" data-dismiss="modal">
-                                        <i class="fas fa-times fa-fw"></i>
-                                        Close Window
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 {% endblock %}
